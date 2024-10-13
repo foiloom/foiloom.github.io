@@ -226,6 +226,80 @@
         font-size: 1rem;
       }
     }
+
+    /* Modal Styles */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.7); /* Black background with transparency */
+      animation: fadeIn 0.3s; /* Fade in animation */
+    }
+
+    .modal-content {
+      background-color: #1E1E1E;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 500px;
+      border-radius: 8px;
+      animation: slideIn 0.3s; /* Slide in animation */
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 15px;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      color: #FF5733;
+    }
+
+    .modal-body {
+      padding: 15px;
+      color: #FFFFFF;
+      text-align: center;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: center;
+      padding: 10px;
+    }
+
+    .modal-footer button {
+      background-color: #FF5733;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .modal-footer button:hover {
+      background-color: #FF7F50;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
   </style>
 </head>
 <body>
@@ -282,7 +356,7 @@
   <section id="services" class="services">
     <h2>Our Services</h2>
     <ul>
-      <li><a href="#" onclick="promptForCurrency()" style="color: #FF5733; text-decoration: none;">Currency: Robux</a></li>
+      <li><a href="#" onclick="openModal()" style="color: #FF5733; text-decoration: none;">Currency: Robux</a></li>
     </ul>
   </section>
 
@@ -291,26 +365,71 @@
     <p>&copy; 2024 Foiloom. All Rights Reserved.</p>
   </footer>
 
+  <!-- Modal for Cryptocurrency Selection -->
+  <div id="currencyModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Choose a Cryptocurrency</h2>
+        <span onclick="closeModal()" style="cursor: pointer; color: #FF5733;">&times;</span>
+      </div>
+      <div class="modal-body">
+        <label>
+          <input type="radio" name="currency" value="Litecoin"> Litecoin
+        </label><br>
+        <label>
+          <input type="radio" name="currency" value="Bitcoin"> Bitcoin
+        </label><br>
+        <label>
+          <input type="radio" name="currency" value="Ethereum"> Ethereum
+        </label><br>
+      </div>
+      <div class="modal-footer">
+        <button onclick="handleCurrencySelection()">Submit</button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    function promptForCurrency() {
-      const currency = prompt("Choose a crypto currency:\n1. Litecoin\n2. Bitcoin\n3. Ethereum");
-      if (currency) {
-          if (currency.toLowerCase() === "litecoin") {
+    // Function to open the modal
+    function openModal() {
+      document.getElementById("currencyModal").style.display = "block";
+    }
+
+    // Function to close the modal
+    function closeModal() {
+      document.getElementById("currencyModal").style.display = "none";
+    }
+
+    // Function to handle currency selection
+    function handleCurrencySelection() {
+      const selectedCurrency = document.querySelector('input[name="currency"]:checked');
+
+      if (selectedCurrency) {
+          const currencyValue = selectedCurrency.value;
+          if (currencyValue === "Litecoin") {
               alert("Send 0.0772439363509965 LTC to this eAddress: (LVbjxG2sT9kY3hiKMKBvkZKT9HT8iduGc6)");
-          } else if (currency.toLowerCase() === "bitcoin") {
+          } else if (currencyValue === "Bitcoin") {
               alert("Please follow the Bitcoin payment instructions on our website.");
               // You can add specific instructions for Bitcoin here
-          } else if (currency.toLowerCase() === "ethereum") {
+          } else if (currencyValue === "Ethereum") {
               alert("Please follow the Ethereum payment instructions on our website.");
               // You can add specific instructions for Ethereum here
-          } else {
-              alert("Invalid option selected. Please choose a valid cryptocurrency.");
           }
+          closeModal(); // Close the modal after selection
       } else {
-          alert("No option selected.");
+          alert("Please select a cryptocurrency.");
+      }
+    }
+
+    // Close modal when clicking outside of it
+    window.onclick = function(event) {
+      const modal = document.getElementById("currencyModal");
+      if (event.target == modal) {
+          closeModal();
       }
     }
   </script>
 
 </body>
 </html>
+
