@@ -282,7 +282,7 @@
   <section id="services" class="services">
     <h2>Our Services</h2>
     <ul>
-      <li><a href="purchase.html" style="color: #FF5733; text-decoration: none;">Currency: Robux</a></li>
+      <li><a href="#" onclick="promptForWalletAddress()" style="color: #FF5733; text-decoration: none;">Currency: Robux</a></li>
       <li>Web Development</li>
       <li>Mobile App Development</li>
       <li>SEO Optimization</li>
@@ -297,5 +297,18 @@
     <p>&copy; 2024 Foiloom. All Rights Reserved.</p>
   </footer>
 
+  <script>
+    function promptForWalletAddress() {
+      const walletAddress = prompt("Enter eWallet Address");
+      if (walletAddress) {
+          alert(`You entered: ${walletAddress}\nPlease proceed with the payment.`);
+          // Optionally, you can also process the payment here
+      } else {
+          alert("No wallet address entered.");
+      }
+    }
+  </script>
+
 </body>
 </html>
+
