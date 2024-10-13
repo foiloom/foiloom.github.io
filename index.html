@@ -356,7 +356,7 @@
   <section id="services" class="services">
     <h2>Our Services</h2>
     <ul>
-      <li><a href="#" onclick="openModal()" style="color: #FF5733; text-decoration: none;">Currency: Robux</a></li>
+      <li><a href="#" onclick="openCurrencyModal()" style="color: #FF5733; text-decoration: none;">Currency: Robux</a></li>
     </ul>
   </section>
 
@@ -370,7 +370,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h2>Choose a Cryptocurrency</h2>
-        <span onclick="closeModal()" style="cursor: pointer; color: #FF5733;">&times;</span>
+        <span onclick="closeCurrencyModal()" style="cursor: pointer; color: #FF5733;">&times;</span>
       </div>
       <div class="modal-body">
         <label>
@@ -389,15 +389,42 @@
     </div>
   </div>
 
+  <!-- Modal for Payment Instructions -->
+  <div id="paymentModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Payment Instructions</h2>
+        <span onclick="closePaymentModal()" style="cursor: pointer; color: #FF5733;">&times;</span>
+      </div>
+      <div class="modal-body" id="paymentInstructions">
+        <!-- Payment instructions will be dynamically injected here -->
+      </div>
+      <div class="modal-footer">
+        <button onclick="closePaymentModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // Function to open the modal
-    function openModal() {
+    // Function to open the currency selection modal
+    function openCurrencyModal() {
       document.getElementById("currencyModal").style.display = "block";
     }
 
-    // Function to close the modal
-    function closeModal() {
+    // Function to close the currency selection modal
+    function closeCurrencyModal() {
       document.getElementById("currencyModal").style.display = "none";
+    }
+
+    // Function to open the payment instructions modal
+    function openPaymentModal(instructions) {
+      document.getElementById("paymentInstructions").innerHTML = instructions;
+      document.getElementById("paymentModal").style.display = "block";
+    }
+
+    // Function to close the payment instructions modal
+    function closePaymentModal() {
+      document.getElementById("paymentModal").style.display = "none";
     }
 
     // Function to handle currency selection
@@ -405,31 +432,37 @@
       const selectedCurrency = document.querySelector('input[name="currency"]:checked');
 
       if (selectedCurrency) {
-          const currencyValue = selectedCurrency.value;
-          if (currencyValue === "Litecoin") {
-              alert("Send 0.0772439363509965 LTC to this eAddress: (LVbjxG2sT9kY3hiKMKBvkZKT9HT8iduGc6)");
-          } else if (currencyValue === "Bitcoin") {
-              alert("Please follow the Bitcoin payment instructions on our website.");
-              // You can add specific instructions for Bitcoin here
-          } else if (currencyValue === "Ethereum") {
-              alert("Please follow the Ethereum payment instructions on our website.");
-              // You can add specific instructions for Ethereum here
-          }
-          closeModal(); // Close the modal after selection
+        const currencyValue = selectedCurrency.value;
+        let instructions = "";
+
+        if (currencyValue === "Litecoin") {
+          instructions = "Send 0.0772439363509965 LTC to this eAddress: <strong>(LVbjxG2sT9kY3hiKMKBvkZKT9HT8iduGc6)</strong>";
+        } else if (currencyValue === "Bitcoin") {
+          instructions = "Please follow the Bitcoin payment instructions on our website.";
+          // You can add specific instructions for Bitcoin here
+        } else if (currencyValue === "Ethereum") {
+          instructions = "Please follow the Ethereum payment instructions on our website.";
+          // You can add specific instructions for Ethereum here
+        }
+
+        closeCurrencyModal(); // Close the currency selection modal
+        openPaymentModal(instructions); // Open the payment instructions modal
       } else {
-          alert("Please select a cryptocurrency.");
+        alert("Please select a cryptocurrency.");
       }
     }
 
     // Close modal when clicking outside of it
     window.onclick = function(event) {
-      const modal = document.getElementById("currencyModal");
-      if (event.target == modal) {
-          closeModal();
+      const currencyModal = document.getElementById("currencyModal");
+      const paymentModal = document.getElementById("paymentModal");
+      if (event.target == currencyModal) {
+        closeCurrencyModal();
+      } else if (event.target == paymentModal) {
+        closePaymentModal();
       }
     }
   </script>
 
 </body>
 </html>
-
