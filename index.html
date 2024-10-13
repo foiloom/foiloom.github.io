@@ -61,7 +61,7 @@
     .stars .star {
       top: calc(100% * var(--randomY));
       left: calc(100% * var(--randomX));
-      animation-duration: calc(2s + (3 * var(--randomTime))) ; /* random fade duration */
+      animation-duration: calc(2s + (3 * var(--randomTime))); /* random fade duration */
       animation-delay: calc(var(--randomDelay) * 1s); /* random fade delay */
     }
 
@@ -140,6 +140,40 @@
       margin: 0 auto;
     }
 
+    /* Services Section */
+    .services {
+      padding: 4rem 2rem;
+      background-color: #1E1E1E;
+      color: #FFFFFF;
+      text-align: center;
+    }
+
+    .services h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .services ul {
+      list-style-type: none;
+      padding: 0;
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    .services ul li {
+      margin: 0.5rem 0;
+      position: relative;
+    }
+
+    .services ul li::before {
+      content: '➤';
+      position: absolute;
+      left: -1.5rem;
+      color: #FF5733;
+    }
+
     /* Animations */
     @keyframes fadeIn {
       0% {
@@ -181,6 +215,14 @@
       }
 
       .about p {
+        font-size: 1rem;
+      }
+
+      .services h2 {
+        font-size: 2rem;
+      }
+
+      .services ul li {
         font-size: 1rem;
       }
     }
@@ -234,6 +276,20 @@
   <section id="about" class="about">
     <h2>About Us</h2>
     <p>Foiloom is dedicated to building modern, responsive, and visually appealing websites with the latest technologies and features. Our team of developers ensures high-quality user experiences and impactful designs for your web presence.</p>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="services">
+    <h2>Our Services</h2>
+    <ul>
+      <li>Currency: Robux</li>
+      <li>Web Development</li>
+      <li>Mobile App Development</li>
+      <li>SEO Optimization</li>
+      <li>Graphic Design</li>
+      <li>Consultation Services</li>
+      <!-- Add more services as needed -->
+    </ul>
   </section>
 
   <!-- Footer -->
