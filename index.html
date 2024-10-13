@@ -301,8 +301,13 @@
     function promptForWalletAddress() {
       const walletAddress = prompt("Enter eWallet Address");
       if (walletAddress) {
-          alert(`You entered: ${walletAddress}\nPlease proceed with the payment.`);
-          // Optionally, you can also process the payment here
+          const paymentDetails = prompt("Enter Payment Details (amount, method, etc.)");
+          if (paymentDetails) {
+              alert(`You entered:\nE-Wallet Address: ${walletAddress}\nPayment Details: ${paymentDetails}\nPlease proceed with the payment.`);
+              // You can add logic to process the entered wallet address and payment details here
+          } else {
+              alert("No payment details entered.");
+          }
       } else {
           alert("No wallet address entered.");
       }
@@ -311,4 +316,3 @@
 
 </body>
 </html>
-
