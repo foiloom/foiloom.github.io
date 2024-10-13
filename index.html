@@ -21,8 +21,83 @@
       color: #FFFFFF;
       overflow-x: hidden;
       scroll-behavior: smooth;
+      position: relative;
     }
-    
+
+    /* Stars Background */
+    .stars {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: transparent;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background-color: white;
+      border-radius: 50%;
+      animation: fade 5s infinite ease-in-out;
+    }
+
+    @keyframes fade {
+      0%, 100% {
+        opacity: 0;
+        background-color: white;
+      }
+      50% {
+        opacity: 1;
+        background-color: black;
+      }
+    }
+
+    /* Create multiple stars randomly positioned */
+    @media (min-width: 768px) {
+      .stars {
+        --stars-count: 100;
+      }
+    }
+    @media (max-width: 768px) {
+      .stars {
+        --stars-count: 50;
+      }
+    }
+
+    .stars::after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    /* Create stars dynamically */
+    .stars .star:nth-child(odd) {
+      animation-duration: 6s;
+      animation-delay: 2s;
+    }
+
+    .stars .star:nth-child(even) {
+      animation-duration: 8s;
+      animation-delay: 1s;
+    }
+
+    /* Randomly place stars */
+    .star {
+      top: calc(100% * var(--randomY));
+      left: calc(100% * var(--randomX));
+    }
+
+    .stars {
+      --randomX: calc(1 / var(--stars-count));
+      --randomY: calc(1 / var(--stars-count));
+      z-index: -1;
+    }
+
     /* Navbar */
     nav {
       display: flex;
@@ -64,6 +139,7 @@
       background: linear-gradient(135deg, #FF5733 30%, #121212 70%);
       color: #FFFFFF;
       text-align: center;
+      position: relative;
     }
 
     .hero h1 {
@@ -86,95 +162,5 @@
     }
 
     .about h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1.5rem;
-    }
+      font-size:
 
-    .about p {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    /* Animations */
-    @keyframes fadeIn {
-      0% {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Footer */
-    footer {
-      background-color: #1E1E1E;
-      padding: 2rem;
-      text-align: center;
-      color: #FFFFFF;
-      margin-top: 2rem;
-    }
-
-    footer p {
-      font-size: 0.9rem;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      nav ul {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .hero h1 {
-        font-size: 2.5rem;
-      }
-
-      .about h2 {
-        font-size: 2rem;
-      }
-
-      .about p {
-        font-size: 1rem;
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Navbar -->
-  <nav>
-    <div class="logo">
-      <a href="#" style="color: #FFFFFF; font-size: 1.5rem; text-decoration: none;">Foiloom</a>
-    </div>
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-
-  <!-- Hero Section -->
-  <section class="hero">
-    <div>
-      <h1>Welcome to Foiloom</h1>
-      <p>Your go-to platform for innovative web solutions.</p>
-    </div>
-  </section>
-
-  <!-- About Section -->
-  <section id="about" class="about">
-    <h2>About Us</h2>
-    <p>Foiloom is dedicated to building modern, responsive, and visually appealing websites with the latest technologies and features. Our team of developers ensures high-quality user experiences and impactful designs for your web presence.</p>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2024 Foiloom. All Rights Reserved.</p>
-  </footer>
-
-</body>
-</html>
