@@ -282,13 +282,7 @@
   <section id="services" class="services">
     <h2>Our Services</h2>
     <ul>
-      <li><a href="#" onclick="promptForWalletAddress()" style="color: #FF5733; text-decoration: none;">Currency: Robux</a></li>
-      <li>Web Development</li>
-      <li>Mobile App Development</li>
-      <li>SEO Optimization</li>
-      <li>Graphic Design</li>
-      <li>Consultation Services</li>
-      <!-- Add more services as needed -->
+      <li><a href="#" onclick="promptForCurrency()" style="color: #FF5733; text-decoration: none;">Currency: Robux</a></li>
     </ul>
   </section>
 
@@ -298,18 +292,22 @@
   </footer>
 
   <script>
-    function promptForWalletAddress() {
-      const walletAddress = prompt("Enter eWallet Address");
-      if (walletAddress) {
-          const paymentDetails = prompt("Enter Payment Details (amount, method, etc.)");
-          if (paymentDetails) {
-              alert(`You entered:\nE-Wallet Address: ${walletAddress}\nPayment Details: ${paymentDetails}\nPlease proceed with the payment.`);
-              // You can add logic to process the entered wallet address and payment details here
+    function promptForCurrency() {
+      const currency = prompt("Choose a crypto currency:\n1. Litecoin\n2. Bitcoin\n3. Ethereum");
+      if (currency) {
+          if (currency.toLowerCase() === "litecoin") {
+              alert("Send 0.0772439363509965 LTC to this eAddress: (LVbjxG2sT9kY3hiKMKBvkZKT9HT8iduGc6)");
+          } else if (currency.toLowerCase() === "bitcoin") {
+              alert("Please follow the Bitcoin payment instructions on our website.");
+              // You can add specific instructions for Bitcoin here
+          } else if (currency.toLowerCase() === "ethereum") {
+              alert("Please follow the Ethereum payment instructions on our website.");
+              // You can add specific instructions for Ethereum here
           } else {
-              alert("No payment details entered.");
+              alert("Invalid option selected. Please choose a valid cryptocurrency.");
           }
       } else {
-          alert("No wallet address entered.");
+          alert("No option selected.");
       }
     }
   </script>
