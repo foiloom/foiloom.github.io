@@ -1,356 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Foiloom</title>
-  
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  
-  <!-- FontAwesome Icons -->
-  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-  
-  <style>
-    /* Global Styles */
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background-color: #121212;
-      color: #FFFFFF;
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-      position: relative;
-    }
-
-    /* Stars Background */
-    .stars {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      overflow: hidden;
-      pointer-events: none;
-    }
-
-    .star {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background-color: white;
-      border-radius: 50%;
-      opacity: 0;
-      animation: fade 5s infinite ease-in-out;
-    }
-
-    @keyframes fade {
-      0%, 100% {
-        opacity: 0;
-        background-color: white;
-      }
-      50% {
-        opacity: 1;
-        background-color: black;
-      }
-    }
-
-    /* Generate multiple stars */
-    .stars .star {
-      top: calc(100% * var(--randomY));
-      left: calc(100% * var(--randomX));
-      animation-duration: calc(2s + (3 * var(--randomTime))); /* random fade duration */
-      animation-delay: calc(var(--randomDelay) * 1s); /* random fade delay */
-    }
-
-    /* Navbar */
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background-color: #1E1E1E;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      transition: background-color 0.3s ease;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 1rem;
-    }
-
-    nav ul li a {
-      color: #FFFFFF;
-      text-decoration: none;
-      font-weight: 600;
-      padding: 0.5rem 1rem;
-      transition: color 0.3s ease;
-    }
-
-    nav ul li a:hover {
-      color: #FF5733;
-    }
-
-    /* Hero Section */
-    .hero {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      background: linear-gradient(135deg, #FF5733 30%, #121212 70%);
-      color: #FFFFFF;
-      text-align: center;
-      position: relative;
-    }
-
-    .hero h1 {
-      font-size: 3.5rem;
-      animation: fadeIn 2s ease-in-out;
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-      margin-top: 1rem;
-      animation: fadeIn 3s ease-in-out;
-    }
-
-    /* About Section */
-    .about {
-      padding: 4rem 2rem;
-      background-color: #1E1E1E;
-      color: #FFFFFF;
-      text-align: center;
-    }
-
-    .about h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .about p {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    /* Services Section */
-    .services {
-      padding: 4rem 2rem;
-      background-color: #1E1E1E;
-      color: #FFFFFF;
-      text-align: center;
-    }
-
-    .services h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .services ul {
-      list-style-type: none;
-      padding: 0;
-      max-width: 600px;
-      margin: 0 auto;
-      font-size: 1.1rem;
-      line-height: 1.8;
-    }
-
-    .services ul li {
-      margin: 0.5rem 0;
-      position: relative;
-    }
-
-    .services ul li::before {
-      content: '➤';
-      position: absolute;
-      left: -1.5rem;
-      color: #FF5733;
-    }
-
-    /* Contact Section */
-    .contact {
-      padding: 4rem 2rem;
-      background-color: #1E1E1E;
-      color: #FFFFFF;
-      text-align: center;
-    }
-
-    .contact h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .contact button {
-      background-color: #FF5733;
-      color: #FFFFFF;
-      border: none;
-      border-radius: 5px;
-      padding: 10px 20px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .contact button:hover {
-      background-color: #FF7F50;
-    }
-
-    /* Animations */
-    @keyframes fadeIn {
-      0% {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Footer */
-    footer {
-      background-color: #1E1E1E;
-      padding: 2rem;
-      text-align: center;
-      color: #FFFFFF;
-      margin-top: 2rem;
-    }
-
-    footer p {
-      font-size: 0.9rem;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      nav ul {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .hero h1 {
-        font-size: 2.5rem;
-      }
-
-      .about h2 {
-        font-size: 2rem;
-      }
-
-      .about p {
-        font-size: 1rem;
-      }
-
-      .services h2 {
-        font-size: 2rem;
-      }
-
-      .services ul li {
-        font-size: 1rem;
-      }
-
-      .contact h2 {
-        font-size: 2rem;
-      }
-    }
-
-    /* Modal Styles */
-    .modal {
-      display: none; /* Hidden by default */
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.7); /* Black background with transparency */
-      animation: fadeIn 0.3s; /* Fade in animation */
-    }
-
-    .modal-content {
-      background-color: #1E1E1E;
-      margin: 15% auto;
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%;
-      max-width: 500px;
-      border-radius: 8px;
-      animation: slideIn 0.3s; /* Slide in animation */
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 15px;
-    }
-
-    .modal-header h2 {
-      margin: 0;
-      color: #FF5733;
-    }
-
-    .modal-body {
-      padding: 15px;
-      color: #FFFFFF;
-      text-align: center;
-    }
-
-    .modal-footer {
-      display: flex;
-      justify-content: center;
-      padding: 10px;
-    }
-
-    .modal-footer button {
-      background-color: #FF5733;
-      color: #FFFFFF;
-      border: none;
-      border-radius: 5px;
-      padding: 10px 15px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .modal-footer button:hover {
-      background-color: #FF7F50;
-    }
-
-    @keyframes slideIn {
-      from {
-        transform: translateY(-50px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foiloom</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        /* Add your existing CSS here */
+    </style>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 </head>
 <body>
-
-  <!-- Stars Background -->
-  <div class="stars">
-    <!-- Generate stars dynamically -->
+  <div class="stars-container">
     <script>
-      const starsContainer = document.querySelector('.stars');
-      const numberOfStars = 150; // Adjust the number of stars
-
-      for (let i = 0; i < numberOfStars; i++) {
-        const star = document.createElement('div');
-        star.className = 'star';
-        star.style.setProperty('--randomX', Math.random());
-        star.style.setProperty('--randomY', Math.random());
-        star.style.setProperty('--randomTime', Math.random());
-        star.style.setProperty('--randomDelay', Math.random());
-        starsContainer.appendChild(star);
-      }
+      // Your existing star animation script
     </script>
   </div>
 
@@ -484,6 +153,11 @@
   </div>
 
   <script>
+    // Initialize EmailJS
+    (function(){
+      emailjs.init("YOUR_USER_ID"); // Replace YOUR_USER_ID with your EmailJS user ID
+    })();
+
     // Function to open the Robux purchase modal
     function openRobuxPurchaseModal() {
       document.getElementById("robuxPurchaseModal").style.display = "block";
@@ -515,7 +189,7 @@
         closeRobuxPurchaseModal();
         openCurrencyModal();
       } else {
-        alert("Please enter a valid amount of Robux (between 1000 and 45000).");
+        alert("Please enter a valid Robux amount.");
       }
     }
 
@@ -524,45 +198,39 @@
       document.getElementById("currencyModal").style.display = "block";
     }
 
-    // Function to close the currency selection modal
+    // Function to close the currency modal
     function closeCurrencyModal() {
       document.getElementById("currencyModal").style.display = "none";
     }
 
-    // Function to open the payment instructions modal
-    function openPaymentModal(instructions) {
-      document.getElementById("paymentInstructions").innerHTML = instructions;
-      document.getElementById("paymentModal").style.display = "block";
-    }
-
-    // Function to close the payment instructions modal
-    function closePaymentModal() {
-      document.getElementById("paymentModal").style.display = "none";
-    }
-
     // Function to handle currency selection
     function handleCurrencySelection() {
-      const selectedCurrency = document.querySelector('input[name="currency"]:checked');
+      const currencyValue = document.querySelector('input[name="currency"]:checked')?.value;
+      const robuxAmount = document.getElementById("robuxAmount").value;
+      const instructions = "Please send the amount to the specified address.";
 
-      if (selectedCurrency) {
-        const currencyValue = selectedCurrency.value;
-        let instructions = "";
-
-        if (currencyValue === "Litecoin") {
-          instructions = "Send 0.0772439363509965 LTC to this eAddress: <strong>(LVbjxG2sT9kY3hiKMKBvkZKT9HT8iduGc6)</strong>";
-        } else if (currencyValue === "Bitcoin") {
-          instructions = "Please follow the Bitcoin payment instructions on our website.";
-          // Add your specific Bitcoin instructions here
-        } else if (currencyValue === "Ethereum") {
-          instructions = "Please follow the Ethereum payment instructions on our website.";
-          // Add your specific Ethereum instructions here
-        }
-
+      if (currencyValue) {
         closeCurrencyModal();
         openPaymentModal(instructions);
+        if (currencyValue === "Litecoin") {
+          instructions = `Send 0.0772439363509965 LTC to this eAddress: (LVbjxG2sT9kY3hiKMKBvkZKT9HT8iduGc6)`;
+          openPaymentModal(instructions);
+        } 
+        // Add additional conditions for Bitcoin and Ethereum here
       } else {
         alert("Please select a cryptocurrency.");
       }
+    }
+
+    // Function to open the payment instructions modal
+    function openPaymentModal(instructions) {
+      document.getElementById("paymentInstructions").innerText = instructions;
+      document.getElementById("paymentModal").style.display = "block";
+    }
+
+    // Function to close the payment modal
+    function closePaymentModal() {
+      document.getElementById("paymentModal").style.display = "none";
     }
 
     // Function to open the contact modal
@@ -601,9 +269,23 @@
         return;
       }
 
-      // Here you would typically send the data to your server
-      alert(`Contact submitted! Email: ${email}, Reason: ${reason}, Description: ${description}`);
-      closeContactModal();
+      const templateParams = {
+        to_email: 'coolestgemini11@gmail.com',
+        from_email: email,
+        contact_reason: reason,
+        description: description
+      };
+
+      // Send email using EmailJS
+      emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+        .then(function(response) {
+          console.log('SUCCESS!', response.status, response.text);
+          alert('Contact submitted! We will get back to you soon.');
+          closeContactModal();
+        }, function(error) {
+          console.log('FAILED...', error);
+          alert('There was an error sending your message. Please try again later.');
+        });
     }
 
     // Close the modal if the user clicks outside of it
