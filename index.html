@@ -1,207 +1,485 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foiloom - Enhancing Your Roblox Experience</title>
-    <link rel="stylesheet" href="style.css"> <!-- Include your CSS here -->
-    <style>
-        /* Basic reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Foiloom</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  
+  <style>
+    /* Global Styles */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #121212;
+      color: #FFFFFF;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      position: relative;
+    }
 
-        /* Responsive styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-        }
+    /* Stars Background */
+    .stars {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background-color: white;
+      border-radius: 50%;
+      opacity: 0;
+      animation: fade 5s infinite ease-in-out;
+    }
 
-        header {
-            background: #007bff;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-        }
+    @keyframes fade {
+      0%, 100% {
+        opacity: 0;
+        background-color: white;
+      }
+      50% {
+        opacity: 1;
+        background-color: black;
+      }
+    }
 
-        nav {
-            margin: 10px 0;
-        }
+    /* Generate multiple stars */
+    .stars .star {
+      top: calc(100% * var(--randomY));
+      left: calc(100% * var(--randomX));
+      animation-duration: calc(2s + (3 * var(--randomTime))); /* random fade duration */
+      animation-delay: calc(var(--randomDelay) * 1s); /* random fade delay */
+    }
 
-        nav a {
-            margin: 0 15px;
-            color: #fff;
-            text-decoration: none;
-        }
+    /* Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #1E1E1E;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s ease;
+    }
 
-        .contact-btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
 
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-        }
+    nav ul li a {
+      color: #FFFFFF;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      transition: color 0.3s ease;
+    }
 
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 500px;
-        }
+    nav ul li a:hover {
+      color: #FF5733;
+    }
 
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
+    /* Hero Section */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #FF5733 30%, #121212 70%);
+      color: #FFFFFF;
+      text-align: center;
+      position: relative;
+    }
 
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
+    .hero h1 {
+      font-size: 3.5rem;
+      animation: fadeIn 2s ease-in-out;
+    }
 
-        /* Responsive layout for the contact form */
-        input[type="text"],
-        input[type="email"],
-        textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+    .hero p {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      animation: fadeIn 3s ease-in-out;
+    }
 
-        textarea {
-            height: 100px;
-        }
+    /* About Section */
+    .about {
+      padding: 4rem 2rem;
+      background-color: #1E1E1E;
+      color: #FFFFFF;
+      text-align: center;
+    }
 
-        button[type="submit"] {
-            background-color: #007bff;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+    .about h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
 
-        button[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    .about p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Services Section */
+    .services {
+      padding: 4rem 2rem;
+      background-color: #1E1E1E;
+      color: #FFFFFF;
+      text-align: center;
+    }
+
+    .services h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .services ul {
+      list-style-type: none;
+      padding: 0;
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    .services ul li {
+      margin: 0.5rem 0;
+      position: relative;
+    }
+
+    .services ul li::before {
+      content: '➤';
+      position: absolute;
+      left: -1.5rem;
+      color: #FF5733;
+    }
+
+    /* Contact Section */
+    .contact {
+      padding: 4rem 2rem;
+      background-color: #1E1E1E;
+      color: #FFFFFF;
+      text-align: center;
+    }
+
+    .contact h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact button {
+      background-color: #FF5733;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .contact button:hover {
+      background-color: #FF7F50;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Footer */
+    footer {
+      background-color: #1E1E1E;
+      padding: 2rem;
+      text-align: center;
+      color: #FFFFFF;
+      margin-top: 2rem;
+    }
+
+    footer p {
+      font-size: 0.9rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .about h2 {
+        font-size: 2rem;
+      }
+
+      .about p {
+        font-size: 1rem;
+      }
+
+      .services h2 {
+        font-size: 2rem;
+      }
+
+      .services ul li {
+        font-size: 1rem;
+      }
+
+      .contact h2 {
+        font-size: 2rem;
+      }
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.7); /* Black background with transparency */
+      animation: fadeIn 0.3s; /* Fade in animation */
+    }
+
+    .modal-content {
+      background-color: #1E1E1E;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 500px;
+      border-radius: 8px;
+      animation: slideIn 0.3s; /* Slide in animation */
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 15px;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      color: #FF5733;
+    }
+
+    .modal-body {
+      padding: 15px;
+      color: #FFFFFF;
+      text-align: center;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: center;
+      padding: 10px;
+    }
+
+    .modal-footer button {
+      background-color: #FF5733;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .modal-footer button:hover {
+      background-color: #FF7F50;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
 </head>
-
 <body>
-    <header>
-        <h1>Welcome to Foiloom!</h1>
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#contact" class="contact-btn">Contact Us</a>
-        </nav>
-    </header>
 
-    <div class="container">
-        <h2>Your Roblox Experience, Enhanced!</h2>
-        <p>Explore tools and currencies that elevate your gameplay!</p>
-        <!-- Additional content goes here -->
-    </div>
-
-    <!-- Contact Modal -->
-    <div id="contactModal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="closeModal">&times;</span>
-            <h2>Contact Us</h2>
-            <form id="contactForm">
-                <input type="email" id="email" placeholder="Enter your email" required>
-                <input type="text" id="contactReason" placeholder="Reason for Contact" maxlength="50" required>
-                <textarea id="description" placeholder="Describe your issue..." maxlength="500" required></textarea>
-                <button type="submit">Send</button>
-            </form>
-        </div>
-    </div>
-
+  <!-- Stars Background -->
+  <div class="stars">
+    <!-- Generate stars dynamically -->
     <script>
-        // Get modal element
-        var modal = document.getElementById("contactModal");
-        var btn = document.querySelector(".contact-btn");
-        var span = document.getElementById("closeModal");
-        var form = document.getElementById("contactForm");
+      const starsContainer = document.querySelector('.stars');
+      const numberOfStars = 150; // Adjust the number of stars
 
-        // Show modal on button click
-        btn.onclick = function () {
-            modal.style.display = "block";
-        }
-
-        // Close modal on span click
-        span.onclick = function () {
-            modal.style.display = "none";
-        }
-
-        // Close modal on outside click
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-
-        // Handle form submission
-        form.onsubmit = function (event) {
-            event.preventDefault(); // Prevent form from submitting normally
-            var email = document.getElementById("email").value;
-            var contactReason = document.getElementById("contactReason").value;
-            var description = document.getElementById("description").value;
-
-            // Validate form fields (if needed)
-            if (email && contactReason && description) {
-                // Construct the email body
-                var emailBody = `Email: ${email}\nReason: ${contactReason}\nDescription: ${description}`;
-                
-                // Replace with actual email sending functionality
-                // You can use a backend service to send the email
-                console.log(emailBody); // For demonstration purposes
-                alert("Your message has been sent!");
-
-                // Close modal after submission
-                modal.style.display = "none";
-
-                // Clear form fields
-                form.reset();
-            } else {
-                alert("Please fill out all fields.");
-            }
-        }
+      for (let i = 0; i < numberOfStars; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.setProperty('--randomX', Math.random());
+        star.style.setProperty('--randomY', Math.random());
+        star.style.setProperty('--randomTime', Math.random());
+        star.style.setProperty('--randomDelay', Math.random());
+        starsContainer.appendChild(star);
+      }
     </script>
-</body>
+  </div>
 
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">Foiloom</div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#contact" id="contactBtn">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="hero" id="home">
+    <h1>Welcome to Foiloom</h1>
+    <p>Your ultimate Roblox experience enhancer!</p>
+  </div>
+
+  <!-- About Section -->
+  <div class="about" id="about">
+    <h2>About Us</h2>
+    <p>Foiloom is dedicated to enhancing your Roblox experience with innovative tools and resources.</p>
+  </div>
+
+  <!-- Services Section -->
+  <div class="services" id="services">
+    <h2>Our Services</h2>
+    <ul>
+      <li>Tool Enhancements</li>
+      <li>Currency Boosts</li>
+      <li>Customizable Features</li>
+    </ul>
+  </div>
+
+  <!-- Contact Section -->
+  <div class="contact" id="contact">
+    <h2>Get in Touch</h2>
+    <button id="openModal">Contact Us</button>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="contactModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Contact Us</h2>
+        <span class="close" id="closeModal">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p>Please fill in the form below:</p>
+        <form id="contactForm">
+          <input type="email" id="email" placeholder="Your Email" required>
+          <br><br>
+          <textarea id="description" placeholder="Your Message" required></textarea>
+          <br><br>
+          <select id="reason" required>
+            <option value="" disabled selected>Select a reason</option>
+            <option value="Feedback">Feedback</option>
+            <option value="Support">Support</option>
+            <option value="Inquiry">Inquiry</option>
+          </select>
+          <br><br>
+          <button type="submit">Send</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 Foiloom. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Modal functionality
+    const openModal = document.getElementById('openModal');
+    const modal = document.getElementById('contactModal');
+    const closeModal = document.getElementById('closeModal');
+
+    openModal.onclick = function() {
+      modal.style.display = 'block';
+    }
+
+    closeModal.onclick = function() {
+      modal.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    }
+
+    // Form submission
+    const contactForm = document.getElementById('contactForm');
+
+    contactForm.onsubmit = function(event) {
+      event.preventDefault();
+
+      const email = document.getElementById('email').value;
+      const description = document.getElementById('description').value;
+      const reason = document.getElementById('reason').value;
+
+      const payload = {
+        content: `New contact form submission:\nEmail: ${email}\nReason: ${reason}\nMessage: ${description}`
+      };
+
+      // Send data to Discord webhook
+      fetch('YOUR_DISCORD_WEBHOOK_URL_HERE', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(response => {
+        if (response.ok) {
+          alert('Your message has been sent!');
+          contactForm.reset();
+          modal.style.display = 'none';
+        } else {
+          alert('There was an error sending your message. Please try again later.');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('There was an error sending your message. Please try again later.');
+      });
+    }
+  </script>
+</body>
 </html>
