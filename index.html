@@ -90,7 +90,7 @@
       text-decoration: none;
       font-weight: 600;
       padding: 0.5rem 1rem;
-      transition: color 0.3s ease;
+      transition: color 0.3s;
     }
 
     nav ul li a:hover {
@@ -354,108 +354,68 @@
     </script>
   </div>
 
-  <!-- Navigation -->
+  <!-- Navbar -->
   <nav>
-    <div class="logo">
-      <h1 style="margin: 0; font-size: 1.5rem; color: #FF5733;">Foiloom</h1>
-    </div>
+    <div class="logo">Foiloom</div>
     <ul>
       <li><a href="#about">About</a></li>
-      <li><a href="#tools">Tools</a></li>
+      <li><a href="#services">Services</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
   <!-- Hero Section -->
-  <section class="hero">
-    <div>
-      <h1>Welcome to Foiloom</h1>
-      <p>Your go-to platform for innovative web solutions.</p>
-    </div>
-  </section>
+  <div class="hero">
+    <h1>Welcome to Foiloom</h1>
+    <p>Your ultimate Roblox enhancer!</p>
+  </div>
 
   <!-- About Section -->
-  <section id="about" class="about">
+  <div id="about" class="about">
     <h2>About Us</h2>
-    <p>Foiloom Shop is a premier Roblox enhancement website dedicated to enriching your Roblox experience. With a wide array of tools and affordable currencies, we aim to transform the way you enjoy the game.</p>
-  </section>
+    <p>We provide tools and currency to enhance your Roblox gaming experience. Enjoy a smoother and more enjoyable gameplay!</p>
+  </div>
 
   <!-- Services Section -->
-  <section id="tools" class="services">
-    <h2>Our Tools</h2>
+  <div id="services" class="services">
+    <h2>Our Services</h2>
     <ul>
-      <li><a href="#" onclick="openRobuxPurchaseModal()" style="color: #FF5733; text-decoration: none;">Robux</a></li>
-      <li><a href="#" style="color: #FF5733; text-decoration: none;">Roblox Followers</a></li>
+      <li>Roblox currency conversion</li>
+      <li>Roblox game enhancements</li>
+      <li>Tools for improved gameplay</li>
     </ul>
-  </section>
+  </div>
+
+  <!-- Currency Conversion Section -->
+  <div class="conversion">
+    <h2>Currency Converter</h2>
+    <label for="currencySelect">Select Currency:</label>
+    <select id="currencySelect">
+      <option value="">--Select--</option>
+      <option value="robux">Robux</option>
+      <option value="litecoin">Litecoin</option>
+    </select>
+
+    <div id="robuxInput" style="display: none;">
+      <label for="robuxAmount">Enter Robux Amount:</label>
+      <input type="number" id="robuxAmount" placeholder="Robux Amount">
+    </div>
+
+    <div id="litecoinInput" style="display: none;">
+      <label for="litecoinAmount">Enter Litecoin Amount:</label>
+      <input type="number" id="litecoinAmount" placeholder="Litecoin Amount">
+    </div>
+
+    <button id="convertButton" style="display: none;">Convert</button>
+    
+    <!-- Display Converted Amount -->
+    <div id="result" style="display: none; margin-top: 20px;"></div>
+  </div>
 
   <!-- Contact Section -->
-  <section id="contact" class="contact">
+  <div id="contact" class="contact">
     <h2>Contact Us</h2>
-    <button onclick="openContactModal()">Contact</button>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2024 Foiloom. All Rights Reserved.</p>
-  </footer>
-
-  <!-- Modal for Robux Purchase -->
-  <div id="robuxPurchaseModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Purchase Robux</h2>
-        <span onclick="closeRobuxPurchaseModal()" style="cursor: pointer; color: #FF5733;">&times;</span>
-      </div>
-      <div class="modal-body">
-        <label for="robuxAmount">Enter the amount of Robux:</label><br>
-        <input type="number" id="robuxAmount" oninput="updatePrice()" min="1000" max="45000" placeholder="e.g., 1000" style="width: 100%; padding: 10px; margin: 10px 0;">
-        <p style="color: #FF5733;">Total Price: <span id="totalPrice">$0.00</span></p>
-      </div>
-      <div class="modal-footer">
-        <button onclick="confirmRobuxPurchase()">Next</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal for Cryptocurrency Selection -->
-  <div id="currencyModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Choose a Cryptocurrency</h2>
-        <span onclick="closeCurrencyModal()" style="cursor: pointer; color: #FF5733;">&times;</span>
-      </div>
-      <div class="modal-body">
-        <label>
-          <input type="radio" name="currency" value="Litecoin"> Litecoin
-        </label><br>
-        <label>
-          <input type="radio" name="currency" value="Bitcoin"> Bitcoin
-        </label><br>
-        <label>
-          <input type="radio" name="currency" value="Ethereum"> Ethereum
-        </label><br>
-      </div>
-      <div class="modal-footer">
-        <button onclick="handleCurrencySelection()">Submit</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal for Payment Instructions -->
-  <div id="paymentModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Payment Instructions</h2>
-        <span onclick="closePaymentModal()" style="cursor: pointer; color: #FF5733;">&times;</span>
-      </div>
-      <div class="modal-body" id="paymentInstructions">
-        <!-- Payment instructions will be dynamically injected here -->
-      </div>
-      <div class="modal-footer">
-        <button onclick="closePaymentModal()">Close</button>
-      </div>
-    </div>
+    <button id="contactButton">Get in Touch</button>
   </div>
 
   <!-- Modal for Contact -->
@@ -463,158 +423,124 @@
     <div class="modal-content">
       <div class="modal-header">
         <h2>Contact Us</h2>
-        <span onclick="closeContactModal()" style="cursor: pointer; color: #FF5733;">&times;</span>
+        <span class="close">&times;</span>
       </div>
       <div class="modal-body">
-        <label for="emailAddress">Enter your email address:</label><br>
-        <input type="email" id="emailAddress" placeholder="Your Email" style="width: 100%; padding: 10px; margin: 10px 0;">
-        
-        <label for="contactReason">Contact Reason:</label><br>
-        <input type="text" id="contactReason" maxlength="50" oninput="updateContactReasonCount()" placeholder="Reason (max 50 chars)" style="width: 100%; padding: 10px; margin: 10px 0;">
-        <p id="contactReasonCount">50 characters left</p>
-
-        <label for="description">Description:</label><br>
-        <textarea id="description" maxlength="500" oninput="updateDescriptionCount()" rows="4" style="width: 100%; padding: 10px; margin: 10px 0;" placeholder="Describe your issue (max 500 chars)"></textarea>
-        <p id="descriptionCount">500 characters left</p>
+        <label for="email">Your Email:</label>
+        <input type="email" id="email" placeholder="Your Email">
+        <label for="reason">Contact Reason:</label>
+        <select id="reason">
+          <option value="">--Select--</option>
+          <option value="support">Support</option>
+          <option value="feedback">Feedback</option>
+          <option value="other">Other</option>
+        </select>
+        <label for="description">Description:</label>
+        <textarea id="description" rows="4" placeholder="Description (max 200 characters)" maxlength="200"></textarea>
       </div>
       <div class="modal-footer">
-        <button onclick="submitContact()">Submit</button>
+        <button id="sendContact">Send</button>
       </div>
     </div>
   </div>
 
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 Foiloom. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript -->
   <script>
-    // Function to open the Robux purchase modal
-    function openRobuxPurchaseModal() {
-      document.getElementById("robuxPurchaseModal").style.display = "block";
-    }
+    // Toggle currency input fields based on selected currency
+    const currencySelect = document.getElementById('currencySelect');
+    const robuxInput = document.getElementById('robuxInput');
+    const litecoinInput = document.getElementById('litecoinInput');
+    const convertButton = document.getElementById('convertButton');
+    const resultDiv = document.getElementById('result');
 
-    // Function to close the Robux purchase modal
-    function closeRobuxPurchaseModal() {
-      document.getElementById("robuxPurchaseModal").style.display = "none";
-    }
-
-    // Function to update the price based on Robux amount
-    function updatePrice() {
-      const robuxAmount = document.getElementById("robuxAmount").value;
-      const priceDisplay = document.getElementById("totalPrice");
-
-      let price = 0;
-
-      if (robuxAmount >= 1000 && robuxAmount <= 45000) {
-        price = (robuxAmount / 1000) * 6; // $6 for every 1000 Robux
-      }
-
-      priceDisplay.innerText = `$${price.toFixed(2)}`; // Update price display
-    }
-
-    // Function to confirm the Robux purchase and open currency modal
-    function confirmRobuxPurchase() {
-      const robuxAmount = document.getElementById("robuxAmount").value;
-      if (robuxAmount >= 1000 && robuxAmount <= 45000) {
-        closeRobuxPurchaseModal();
-        openCurrencyModal();
+    currencySelect.addEventListener('change', () => {
+      const selectedValue = currencySelect.value;
+      if (selectedValue === 'robux') {
+        robuxInput.style.display = 'block';
+        litecoinInput.style.display = 'none';
+        convertButton.style.display = 'block';
+        resultDiv.style.display = 'none';
+      } else if (selectedValue === 'litecoin') {
+        robuxInput.style.display = 'none';
+        litecoinInput.style.display = 'block';
+        convertButton.style.display = 'block';
+        resultDiv.style.display = 'none';
       } else {
-        alert("Please enter a valid amount of Robux (between 1000 and 45000).");
+        robuxInput.style.display = 'none';
+        litecoinInput.style.display = 'none';
+        convertButton.style.display = 'none';
+        resultDiv.style.display = 'none';
       }
-    }
+    });
 
-    // Function to open the currency selection modal
-    function openCurrencyModal() {
-      document.getElementById("currencyModal").style.display = "block";
-    }
+    // Add username input after selecting currency
+    convertButton.addEventListener('click', () => {
+      const selectedValue = currencySelect.value;
+      let amount;
+      if (selectedValue === 'robux') {
+        amount = document.getElementById('robuxAmount').value;
+      } else if (selectedValue === 'litecoin') {
+        amount = document.getElementById('litecoinAmount').value;
+      }
 
-    // Function to close the currency selection modal
-    function closeCurrencyModal() {
-      document.getElementById("currencyModal").style.display = "none";
-    }
-
-    // Function to open the payment instructions modal
-    function openPaymentModal(instructions) {
-      document.getElementById("paymentInstructions").innerHTML = instructions;
-      document.getElementById("paymentModal").style.display = "block";
-    }
-
-    // Function to close the payment instructions modal
-    function closePaymentModal() {
-      document.getElementById("paymentModal").style.display = "none";
-    }
-
-    // Function to handle currency selection
-    function handleCurrencySelection() {
-      const selectedCurrency = document.querySelector('input[name="currency"]:checked');
-
-      if (selectedCurrency) {
-        const currencyValue = selectedCurrency.value;
-        let instructions = "";
-
-        if (currencyValue === "Litecoin") {
-          instructions = "Send 0.0772439363509965 LTC to this eAddress: <strong>(LVbjxG2sT9kY3hiKMKBvkZKT9HT8iduGc6)</strong>";
-        } else if (currencyValue === "Bitcoin") {
-          instructions = "Please follow the Bitcoin payment instructions on our website.";
-          // Add your specific Bitcoin instructions here
-        } else if (currencyValue === "Ethereum") {
-          instructions = "Please follow the Ethereum payment instructions on our website.";
-          // Add your specific Ethereum instructions here
+      // Prompt for Roblox username
+      const username = prompt("Please enter your Roblox username:");
+      if (username) {
+        let convertedAmount;
+        if (selectedValue === 'robux') {
+          // Convert Robux to Litecoin (example conversion rate)
+          convertedAmount = (amount * 0.01).toFixed(4); // Assuming 1 Robux = 0.01 Litecoin
+          resultDiv.innerHTML = `${amount} Robux is equivalent to ${convertedAmount} Litecoin.`;
+        } else if (selectedValue === 'litecoin') {
+          // Convert Litecoin to Robux (example conversion rate)
+          convertedAmount = (amount * 100).toFixed(0); // Assuming 1 Litecoin = 100 Robux
+          resultDiv.innerHTML = `${amount} Litecoin is equivalent to ${convertedAmount} Robux.`;
         }
-
-        closeCurrencyModal();
-        openPaymentModal(instructions);
+        resultDiv.style.display = 'block';
       } else {
-        alert("Please select a cryptocurrency.");
+        alert("You must enter a Roblox username to proceed.");
+      }
+    });
+
+    // Contact Modal Logic
+    const contactButton = document.getElementById('contactButton');
+    const contactModal = document.getElementById('contactModal');
+    const closeModal = document.querySelector('.close');
+    const sendContact = document.getElementById('sendContact');
+
+    contactButton.onclick = () => {
+      contactModal.style.display = "block";
+    }
+
+    closeModal.onclick = () => {
+      contactModal.style.display = "none";
+    }
+
+    window.onclick = (event) => {
+      if (event.target === contactModal) {
+        contactModal.style.display = "none";
       }
     }
 
-    // Function to open the contact modal
-    function openContactModal() {
-      document.getElementById("contactModal").style.display = "block";
-    }
+    sendContact.onclick = () => {
+      const email = document.getElementById('email').value;
+      const reason = document.getElementById('reason').value;
+      const description = document.getElementById('description').value;
 
-    // Function to close the contact modal
-    function closeContactModal() {
-      document.getElementById("contactModal").style.display = "none";
-    }
-
-    // Function to update the remaining characters for the contact reason
-    function updateContactReasonCount() {
-      const contactReason = document.getElementById("contactReason").value;
-      const remaining = 50 - contactReason.length;
-      document.getElementById("contactReasonCount").innerText = `${remaining} characters left`;
-    }
-
-    // Function to update the remaining characters for the description
-    function updateDescriptionCount() {
-      const description = document.getElementById("description").value;
-      const remaining = 500 - description.length;
-      document.getElementById("descriptionCount").innerText = `${remaining} characters left`;
-    }
-
-    // Function to handle contact form submission
-    function submitContact() {
-      const email = document.getElementById("emailAddress").value;
-      const reason = document.getElementById("contactReason").value;
-      const description = document.getElementById("description").value;
-
-      // Basic validation
-      if (!email || !reason || !description) {
+      if (email && reason && description) {
+        // Here, you would typically send the data to your server
+        console.log(`Email: ${email}, Reason: ${reason}, Description: ${description}`);
+        alert("Your message has been sent!");
+        contactModal.style.display = "none"; // Close the modal
+      } else {
         alert("Please fill in all fields.");
-        return;
       }
-
-      // Here you would typically send the data to your server
-      alert(`Contact submitted! Email: ${email}, Reason: ${reason}, Description: ${description}`);
-      closeContactModal();
     }
-
-    // Close the modal if the user clicks outside of it
-    window.onclick = function(event) {
-      const modals = document.querySelectorAll('.modal');
-      modals.forEach(modal => {
-        if (event.target === modal) {
-          modal.style.display = "none";
-        }
-      });
-    };
   </script>
 </body>
 </html>
