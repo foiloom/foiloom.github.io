@@ -21,113 +21,330 @@
   </script>
 
   <style>
-    /* Your existing styles remain unchanged */
+    /* Global Styles */
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
       background-color: #121212;
       color: #FFFFFF;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      position: relative;
     }
 
-    /* Additional styles for modal, buttons, etc. */
-    /* ... (rest of your existing styles) ... */
+    /* Stars Background */
+    .stars {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background-color: white;
+      border-radius: 50%;
+      opacity: 0;
+      animation: fade 5s infinite ease-in-out;
+    }
+
+    @keyframes fade {
+      0%, 100% {
+        opacity: 0;
+        background-color: white;
+      }
+      50% {
+        opacity: 1;
+        background-color: black;
+      }
+    }
+
+    .stars .star {
+      top: calc(100% * var(--randomY));
+      left: calc(100% * var(--randomX));
+      animation-duration: calc(2s + (3 * var(--randomTime)));
+      animation-delay: calc(var(--randomDelay) * 1s);
+    }
+
+    /* Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #1E1E1E;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
+
+    nav ul li a {
+      color: #FFFFFF;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #FF5733;
+    }
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #FF5733 30%, #121212 70%);
+      color: #FFFFFF;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      animation: fadeIn 3s ease-in-out;
+    }
+
+    /* About Section */
+    .about {
+      padding: 4rem 2rem;
+      background-color: #1E1E1E;
+      color: #FFFFFF;
+      text-align: center;
+    }
+
+    .about h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .about p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Services Section */
+    .services {
+      padding: 4rem 2rem;
+      background-color: #1E1E1E;
+      color: #FFFFFF;
+      text-align: center;
+    }
+
+    .services h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .services ul {
+      list-style-type: none;
+      padding: 0;
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    .services ul li {
+      margin: 0.5rem 0;
+      position: relative;
+    }
+
+    .services ul li::before {
+      content: '➤';
+      position: absolute;
+      left: -1.5rem;
+      color: #FF5733;
+    }
+
+    /* Contact Section */
+    .contact {
+      padding: 4rem 2rem;
+      background-color: #1E1E1E;
+      color: #FFFFFF;
+      text-align: center;
+    }
+
+    .contact h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact button {
+      background-color: #FF5733;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .contact button:hover {
+      background-color: #FF7F50;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #1E1E1E;
+      padding: 2rem;
+      text-align: center;
+      color: #FFFFFF;
+      margin-top: 2rem;
+    }
+
+    footer p {
+      font-size: 0.9rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .about h2 {
+        font-size: 2rem;
+      }
+
+      .about p {
+        font-size: 1rem;
+      }
+
+      .services h2 {
+        font-size: 2rem;
+      }
+
+      .services ul li {
+        font-size: 1rem;
+      }
+
+      .contact h2 {
+        font-size: 2rem;
+      }
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.7);
+      animation: fadeIn 0.3s;
+    }
+
+    .modal-content {
+      background-color: #1E1E1E;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 500px;
+      border-radius: 8px;
+      animation: slideIn 0.3s;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 15px;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      color: #FF5733;
+    }
+
+    .modal-body {
+      padding: 15px;
+      color: #FFFFFF;
+      text-align: center;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: center;
+      padding: 10px;
+    }
+
+    .modal-footer button {
+      background-color: #FF5733;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .modal-footer button:hover {
+      background-color: #FF7F50;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Contact Section -->
-  <section id="contact" class="contact">
-    <h2>Contact Us</h2>
-    <button onclick="openContactModal()">Contact</button>
-  </section>
-
-  <!-- Modal for Contact -->
-  <div id="contactModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Contact Us</h2>
-        <span onclick="closeContactModal()" style="cursor: pointer; color: #FF5733;">&times;</span>
-      </div>
-      <div class="modal-body">
-        <label for="emailAddress">Enter your email address:</label><br>
-        <input type="email" id="emailAddress" placeholder="Your Email" style="width: 100%; padding: 10px; margin: 10px 0;">
-        
-        <label for="contactReason">Contact Reason:</label><br>
-        <input type="text" id="contactReason" maxlength="50" oninput="updateContactReasonCount()" placeholder="Reason (max 50 chars)" style="width: 100%; padding: 10px; margin: 10px 0;">
-        <p id="contactReasonCount">50 characters left</p>
-
-        <label for="description">Description:</label><br>
-        <textarea id="description" maxlength="500" oninput="updateDescriptionCount()" rows="4" style="width: 100%; padding: 10px; margin: 10px 0;" placeholder="Describe your issue (max 500 chars)"></textarea>
-        <p id="descriptionCount">500 characters left</p>
-      </div>
-      <div class="modal-footer">
-        <button onclick="submitContact()">Submit</button>
-      </div>
-    </div>
-  </div>
+  <!-- Stars Background -->
+  <div class="stars"></div>
 
   <script>
-    // Function to open the contact modal
-    function openContactModal() {
-      document.getElementById("contactModal").style.display = "block";
-    }
-
-    // Function to close the contact modal
-    function closeContactModal() {
-      document.getElementById("contactModal").style.display = "none";
-    }
-
-    // Function to update the remaining characters for the contact reason
-    function updateContactReasonCount() {
-      const contactReason = document.getElementById("contactReason").value;
-      const remaining = 50 - contactReason.length;
-      document.getElementById("contactReasonCount").innerText = `${remaining} characters left`;
-    }
-
-    // Function to update the remaining characters for the description
-    function updateDescriptionCount() {
-      const description = document.getElementById("description").value;
-      const remaining = 500 - description.length;
-      document.getElementById("descriptionCount").innerText = `${remaining} characters left`;
-    }
-
-    // Function to handle contact form submission
-    function submitContact() {
-      const email = document.getElementById("emailAddress").value;
-      const reason = document.getElementById("contactReason").value;
-      const description = document.getElementById("description").value;
-
-      // Basic validation
-      if (!email || !reason || !description) {
-        alert("Please fill in all fields.");
-        return;
-      }
-
-      // Send email using EmailJS
-      const templateParams = {
-        to_email: "irsgroupholder@gmail.com", // Your email where messages will be sent
-        from_email: email,
-        reason: reason,
-        message: description
-      };
-
-      emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", templateParams)
-        .then(function(response) {
-          alert('Contact submitted successfully!');
-        }, function(error) {
-          alert('Failed to send email. Please try again.');
-        });
-
-      closeContactModal();
-    }
-
-    // Close the modal if the user clicks outside of it
-    window.onclick = function(event) {
-      const modal = document.getElementById("contactModal");
-      if (event.target === modal) {
-        modal.style.display = "none";
-      }
-    };
-  </script>
-</body>
-</html>
+    // Generate stars dynamically
+    const starsContainer = document.querySelector('.stars');
+    const numberOfStars = 150
