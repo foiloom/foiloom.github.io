@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -337,6 +338,7 @@
 
   <!-- Stars Background -->
   <div class="stars">
+    <!-- Generate stars dynamically -->
     <script>
       const starsContainer = document.querySelector('.stars');
       const numberOfStars = 150; // Adjust the number of stars
@@ -353,126 +355,267 @@
     </script>
   </div>
 
-  <!-- Navbar -->
+  <!-- Navigation -->
   <nav>
-    <div class="logo">Foiloom</div>
+    <div class="logo">
+      <h1 style="margin: 0; font-size: 1.5rem; color: #FF5733;">Foiloom</h1>
+    </div>
     <ul>
       <li><a href="#about">About</a></li>
-      <li><a href="#services">Services</a></li>
+      <li><a href="#tools">Tools</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
   <!-- Hero Section -->
   <section class="hero">
-    <h1>Welcome to Foiloom!</h1>
-    <p>Your ultimate Roblox enhancer experience.</p>
+    <div>
+      <h1>Welcome to Foiloom</h1>
+      <p>Your go-to platform for innovative web solutions.</p>
+    </div>
   </section>
 
   <!-- About Section -->
-  <section class="about" id="about">
+  <section id="about" class="about">
     <h2>About Us</h2>
-    <p>We are dedicated to enhancing your Roblox experience with tools and currencies to make gameplay enjoyable and efficient.</p>
+    <p>Foiloom Shop is a premier Roblox enhancement website dedicated to enriching your Roblox experience. With a wide array of tools and affordable currencies, we aim to transform the way you enjoy the game.</p>
   </section>
 
   <!-- Services Section -->
-  <section class="services" id="services">
-    <h2>Our Services</h2>
+  <section id="tools" class="services">
+    <h2>Our Tools</h2>
     <ul>
-      <li>Roblox currency enhancement</li>
-      <li>Game performance optimization</li>
-      <li>Customizable tools for gameplay</li>
+      <li><a href="#" onclick="openRobuxPurchaseModal()" style="color: #FF5733; text-decoration: none;">Robux</a></li>
+      <li><a href="#" style="color: #FF5733; text-decoration: none;">Roblox Followers</a></li>
     </ul>
   </section>
 
   <!-- Contact Section -->
-  <section class="contact" id="contact">
+  <section id="contact" class="contact">
     <h2>Contact Us</h2>
-    <button id="contactBtn">Get in Touch</button>
+    <button onclick="openContactModal()">Contact</button>
   </section>
 
   <!-- Footer -->
   <footer>
-    <p>&copy; 2024 Foiloom. All rights reserved.</p>
+    <p>&copy; 2024 Foiloom. All Rights Reserved.</p>
   </footer>
 
-  <!-- Modal -->
-  <div id="myModal" class="modal">
+  <!-- Modal for Robux Purchase -->
+  <div id="robuxPurchaseModal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h2>Contact Form</h2>
-        <span class="close">&times;</span>
+        <h2>Purchase Robux</h2>
+        <span onclick="closeRobuxPurchaseModal()" style="cursor: pointer; color: #FF5733;">&times;</span>
       </div>
       <div class="modal-body">
-        <form id="contactForm">
-          <input type="email" id="email" placeholder="Your email" required>
-          <textarea id="message" placeholder="Your message" required></textarea>
-          <button type="submit">Send</button>
-        </form>
+        <label for="robuxAmount">Enter the amount of Robux:</label><br>
+        <input type="number" id="robuxAmount" oninput="updatePrice()" min="1000" max="45000" placeholder="e.g., 1000" style="width: 100%; padding: 10px; margin: 10px 0;">
+        <p style="color: #FF5733;">Total Price: <span id="totalPrice">$0.00</span></p>
+      </div>
+      <div class="modal-footer">
+        <button onclick="confirmRobuxPurchase()">Next</button>
       </div>
     </div>
   </div>
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-analytics.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
-  <script>
-    // Your web app's Firebase configuration
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_AUTH_DOMAIN",
-      databaseURL: "YOUR_DATABASE_URL",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_STORAGE_BUCKET",
-      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-      appId: "YOUR_APP_ID",
-      measurementId: "YOUR_MEASUREMENT_ID"
-    };
-    
-    // Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    const analytics = firebase.getAnalytics(app);
-  </script>
+  <!-- Modal for Cryptocurrency Selection -->
+  <div id="currencyModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Choose a Cryptocurrency</h2>
+        <span onclick="closeCurrencyModal()" style="cursor: pointer; color: #FF5733;">&times;</span>
+      </div>
+      <div class="modal-body">
+        <label>
+          <input type="radio" name="currency" value="Litecoin"> Litecoin
+        </label><br>
+        <label>
+          <input type="radio" name="currency" value="Bitcoin"> Bitcoin
+        </label><br>
+        <label>
+          <input type="radio" name="currency" value="Ethereum"> Ethereum
+        </label><br>
+      </div>
+      <div class="modal-footer">
+        <button onclick="handleCurrencySelection()">Submit</button>
+      </div>
+    </div>
+  </div>
 
-  <!-- JavaScript for Modal -->
-  <script>
-    // Get modal element
-    var modal = document.getElementById("myModal");
-    var btn = document.getElementById("contactBtn");
-    var span = document.getElementsByClassName("close")[0];
+  <!-- Modal for Payment Instructions -->
+  <div id="paymentModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Payment Instructions</h2>
+        <span onclick="closePaymentModal()" style="cursor: pointer; color: #FF5733;">&times;</span>
+      </div>
+      <div class="modal-body" id="paymentInstructions">
+        <!-- Payment instructions will be dynamically injected here -->
+      </div>
+      <div class="modal-footer">
+        <button onclick="closePaymentModal()">Close</button>
+      </div>
+    </div>
+  </div>
 
-    // When the user clicks the button, open the modal
-    btn.onclick = function() {
-      modal.style.display = "block";
+  <!-- Modal for Contact -->
+  <div id="contactModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Contact Us</h2>
+        <span onclick="closeContactModal()" style="cursor: pointer; color: #FF5733;">&times;</span>
+      </div>
+      <div class="modal-body">
+        <label for="emailAddress">Enter your email address:</label><br>
+        <input type="email" id="emailAddress" placeholder="Your Email" style="width: 100%; padding: 10px; margin: 10px 0;">
+        
+        <label for="contactReason">Contact Reason:</label><br>
+        <input type="text" id="contactReason" maxlength="50" oninput="updateContactReasonCount()" placeholder="Reason (max 50 chars)" style="width: 100%; padding: 10px; margin: 10px 0;">
+        <p id="contactReasonCount">50 characters left</p>
+
+        <label for="description">Description:</label><br>
+        <textarea id="description" maxlength="500" oninput="updateDescriptionCount()" rows="4" style="width: 100%; padding: 10px; margin: 10px 0;" placeholder="Describe your issue (max 500 chars)"></textarea>
+        <p id="descriptionCount">500 characters left</p>
+      </div>
+      <div class="modal-footer">
+        <button onclick="submitContact()">Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Function to open the Robux purchase modal
+    function openRobuxPurchaseModal() {
+      document.getElementById("robuxPurchaseModal").style.display = "block";
     }
 
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-      modal.style.display = "none";
+    // Function to close the Robux purchase modal
+    function closeRobuxPurchaseModal() {
+      document.getElementById("robuxPurchaseModal").style.display = "none";
     }
 
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
+    // Function to update the price based on Robux amount
+    function updatePrice() {
+      const robuxAmount = document.getElementById("robuxAmount").value;
+      const priceDisplay = document.getElementById("totalPrice");
+
+      let price = 0;
+
+      if (robuxAmount >= 1000 && robuxAmount <= 45000) {
+        price = (robuxAmount / 1000) * 6; // $6 for every 1000 Robux
+      }
+
+      priceDisplay.innerText = `$${price.toFixed(2)}`; // Update price display
+    }
+
+    // Function to confirm the Robux purchase and open currency modal
+    function confirmRobuxPurchase() {
+      const robuxAmount = document.getElementById("robuxAmount").value;
+      if (robuxAmount >= 1000 && robuxAmount <= 45000) {
+        closeRobuxPurchaseModal();
+        openCurrencyModal();
+      } else {
+        alert("Please enter a valid amount of Robux (between 1000 and 45000).");
       }
     }
 
-    // Handle form submission
-    document.getElementById('contactForm').onsubmit = function(event) {
-      event.preventDefault();
-      const email = document.getElementById('email').value;
-      const message = document.getElementById('message').value;
+    // Function to open the currency selection modal
+    function openCurrencyModal() {
+      document.getElementById("currencyModal").style.display = "block";
+    }
 
-      // Here you would normally handle sending the data to Firebase
-      console.log("Email:", email, "Message:", message);
-      
-      // Close modal after submission
-      modal.style.display = "none";
+    // Function to close the currency selection modal
+    function closeCurrencyModal() {
+      document.getElementById("currencyModal").style.display = "none";
+    }
+
+    // Function to open the payment instructions modal
+    function openPaymentModal(instructions) {
+      document.getElementById("paymentInstructions").innerHTML = instructions;
+      document.getElementById("paymentModal").style.display = "block";
+    }
+
+    // Function to close the payment instructions modal
+    function closePaymentModal() {
+      document.getElementById("paymentModal").style.display = "none";
+    }
+
+    // Function to handle currency selection
+    function handleCurrencySelection() {
+      const selectedCurrency = document.querySelector('input[name="currency"]:checked');
+
+      if (selectedCurrency) {
+        const currencyValue = selectedCurrency.value;
+        let instructions = "";
+
+        if (currencyValue === "Litecoin") {
+          instructions = "Send 0.0772439363509965 LTC to this eAddress: <strong>(LVbjxG2sT9kY3hiKMKBvkZKT9HT8iduGc6)</strong>";
+        } else if (currencyValue === "Bitcoin") {
+          instructions = "Please follow the Bitcoin payment instructions on our website.";
+          // Add your specific Bitcoin instructions here
+        } else if (currencyValue === "Ethereum") {
+          instructions = "Please follow the Ethereum payment instructions on our website.";
+          // Add your specific Ethereum instructions here
+        }
+
+        closeCurrencyModal();
+        openPaymentModal(instructions);
+      } else {
+        alert("Please select a cryptocurrency.");
+      }
+    }
+
+    // Function to open the contact modal
+    function openContactModal() {
+      document.getElementById("contactModal").style.display = "block";
+    }
+
+    // Function to close the contact modal
+    function closeContactModal() {
+      document.getElementById("contactModal").style.display = "none";
+    }
+
+    // Function to update the remaining characters for the contact reason
+    function updateContactReasonCount() {
+      const contactReason = document.getElementById("contactReason").value;
+      const remaining = 50 - contactReason.length;
+      document.getElementById("contactReasonCount").innerText = `${remaining} characters left`;
+    }
+
+    // Function to update the remaining characters for the description
+    function updateDescriptionCount() {
+      const description = document.getElementById("description").value;
+      const remaining = 500 - description.length;
+      document.getElementById("descriptionCount").innerText = `${remaining} characters left`;
+    }
+
+    // Function to handle contact form submission
+    function submitContact() {
+      const email = document.getElementById("emailAddress").value;
+      const reason = document.getElementById("contactReason").value;
+      const description = document.getElementById("description").value;
+
+      // Basic validation
+      if (!email || !reason || !description) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      // Here you would typically send the data to your server
+      alert(`Contact submitted! Email: ${email}, Reason: ${reason}, Description: ${description}`);
+      closeContactModal();
+    }
+
+    // Close the modal if the user clicks outside of it
+    window.onclick = function(event) {
+      const modals = document.querySelectorAll('.modal');
+      modals.forEach(modal => {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      });
     };
   </script>
-
 </body>
 </html>
