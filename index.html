@@ -13,8 +13,41 @@
             padding: 0;
         }
         /* Add your existing CSS here */
+        /* Add styles for modals */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            color: black;
+        }
+        .modal-header, .modal-footer {
+            background-color: #FF5733; /* Footer color */
+            color: white;
+            padding: 10px;
+        }
+        /* Add animations for modal appearance */
+        .modal-content {
+            animation: fadeIn 0.5s; /* Fade in effect */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
     </style>
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 </head>
 <body>
   <div class="stars-container">
@@ -153,11 +186,6 @@
   </div>
 
   <script>
-    // Initialize EmailJS
-    (function(){
-      emailjs.init("YOUR_USER_ID"); // Replace YOUR_USER_ID with your EmailJS user ID
-    })();
-
     // Function to open the Robux purchase modal
     function openRobuxPurchaseModal() {
       document.getElementById("robuxPurchaseModal").style.display = "block";
@@ -206,7 +234,6 @@
     // Function to handle currency selection
     function handleCurrencySelection() {
       const currencyValue = document.querySelector('input[name="currency"]:checked')?.value;
-      const robuxAmount = document.getElementById("robuxAmount").value;
       const instructions = "Please send the amount to the specified address.";
 
       if (currencyValue) {
@@ -255,37 +282,6 @@
       const description = document.getElementById("description").value;
       const remaining = 500 - description.length;
       document.getElementById("descriptionCount").innerText = `${remaining} characters left`;
-    }
-
-    // Function to handle contact form submission
-    function submitContact() {
-      const email = document.getElementById("emailAddress").value;
-      const reason = document.getElementById("contactReason").value;
-      const description = document.getElementById("description").value;
-
-      // Basic validation
-      if (!email || !reason || !description) {
-        alert("Please fill in all fields.");
-        return;
-      }
-
-      const templateParams = {
-        to_email: 'coolestgemini11@gmail.com',
-        from_email: email,
-        contact_reason: reason,
-        description: description
-      };
-
-      // Send email using EmailJS
-      emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
-        .then(function(response) {
-          console.log('SUCCESS!', response.status, response.text);
-          alert('Contact submitted! We will get back to you soon.');
-          closeContactModal();
-        }, function(error) {
-          console.log('FAILED...', error);
-          alert('There was an error sending your message. Please try again later.');
-        });
     }
 
     // Close the modal if the user clicks outside of it
