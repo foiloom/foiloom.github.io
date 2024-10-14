@@ -3,354 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foiloom</title>
+    <title>Foiloom - Roblox Enhancer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            color: white;
-            overflow: hidden; /* Prevent scrollbars */
+            background-color: #f0f0f0;
         }
 
-        /* Gradient background with animation */
-        .background {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: linear-gradient(270deg, #000, #4e4e4e, #000);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-        }
-
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Star animation */
-        .stars {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 0;
-        }
-
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            animation: twinkling 1.5s infinite alternate;
-        }
-
-        @keyframes twinkling {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        /* Customize star size and position */
-        .star1 { width: 2px; height: 2px; top: 20%; left: 40%; animation-duration: 2s; }
-        .star2 { width: 3px; height: 3px; top: 80%; left: 60%; animation-duration: 2.5s; }
-        .star3 { width: 1px; height: 1px; top: 50%; left: 20%; animation-duration: 1.5s; }
-        .star4 { width: 2.5px; height: 2.5px; top: 30%; left: 80%; animation-duration: 3s; }
-        .star5 { width: 2px; height: 2px; top: 70%; left: 10%; animation-duration: 2.8s; }
-
-        /* Navigation */
-        nav {
+        header {
+            background-color: #ff1e1e;
+            padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem;
-            background-color: rgba(0, 0, 0, 0.7);
         }
 
-        nav h1 {
-            margin: 0;
-            font-size: 1.5rem;
-            color: #FF5733;
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
         }
 
         nav ul {
-            list-style-type: none;
-            margin: 0;
+            list-style: none;
             padding: 0;
+            margin: 0;
             display: flex;
         }
 
         nav ul li {
-            margin: 0 15px;
+            margin-left: 20px;
         }
 
         nav ul li a {
             color: white;
             text-decoration: none;
+            font-weight: 700;
         }
 
-        /* Sections */
-        section {
-            padding: 2rem;
+        .hero {
+            background-color: #fff;
+            padding: 50px;
+            text-align: center;
         }
 
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            color: black;
-        }
-
-        .modal-header, .modal-footer {
-            background-color: #FF5733;
+        .cta-button {
+            background-color: #00aaff;
             color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .features {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .feature {
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
             padding: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="background"></div>
-    <div class="stars">
-        <div class="star star1"></div>
-        <div class="star star2"></div>
-        <div class="star star3"></div>
-        <div class="star star4"></div>
-        <div class="star star5"></div>
-        <!-- Add more stars as needed -->
-    </div>
+    <header>
+        <div class="logo">Foiloom</div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Features</a></li>
+                <li><a href="#">Community</a></li>
+                <li><a href="#">Support</a></li>
+                <li><a href="#">Login</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="logo">
-            <h1>Foiloom</h1>
-        </div>
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#tools">Tools</a></li>
-            <li><a href="#contact" onclick="openContactModal()">Contact</a></li>
-        </ul>
-    </nav>
+    <main>
+        <section class="hero">
+            <h1>Enhance Your Roblox Experience</h1>
+            <p>Explore tools and currencies to elevate your gameplay.</p>
+            <a href="#" class="cta-button">Get Started</a>
+        </section>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Welcome to Foiloom</h1>
-        <p>Your go-to platform for innovative web solutions.</p>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <h2>About Us</h2>
-        <p>Foiloom Shop is a premier Roblox enhancement website dedicated to enriching your Roblox experience. With a wide array of tools and affordable currencies, we aim to transform the way you enjoy the game.</p>
-    </section>
-
-    <!-- Tools Section -->
-    <section id="tools" class="services">
-        <h2>Our Tools</h2>
-        <ul>
-            <li><a href="#" onclick="openRobuxPurchaseModal()" style="color: #FF5733; text-decoration: none;">Robux</a></li>
-            <li><a href="#" style="color: #FF5733; text-decoration: none;">Roblox Followers</a></li>
-        </ul>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <h2>Contact Us</h2>
-        <button onclick="openContactModal()">Contact</button>
-    </section>
-
-    <!-- Modal for Robux Purchase -->
-    <div id="robuxPurchaseModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Purchase Robux</h2>
-                <span onclick="closeRobuxPurchaseModal()" style="cursor: pointer; color: white;">&times;</span>
+        <section class="features">
+            <h2>Features</h2>
+            <div class="feature">
+                <h3>Tool 1</h3>
+                <p>Description of Tool 1.</p>
             </div>
-            <div class="modal-body">
-                <label for="robuxAmount">Enter the amount of Robux:</label><br>
-                <input type="number" id="robuxAmount" oninput="updatePrice()" min="1000" max="45000" placeholder="e.g., 1000" style="width: 100%; padding: 10px; margin: 10px 0;">
-                <p style="color: #FF5733;">Total Price: <span id="totalPrice">$0.00</span></p>
+            <div class="feature">
+                <h3>Tool 2</h3>
+                <p>Description of Tool 2.</p>
             </div>
-            <div class="modal-footer">
-                <button onclick="confirmRobuxPurchase()">Next</button>
+            <div class="feature">
+                <h3>Tool 3</h3>
+                <p>Description of Tool 3.</p>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
-    <!-- Modal for Cryptocurrency Selection -->
-    <div id="currencyModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Choose a Cryptocurrency</h2>
-                <span onclick="closeCurrencyModal()" style="cursor: pointer; color: white;">&times;</span>
-            </div>
-            <div class="modal-body">
-                <label>
-                    <input type="radio" name="currency" value="Litecoin"> Litecoin
-                </label><br>
-                <label>
-                    <input type="radio" name="currency" value="Bitcoin"> Bitcoin
-                </label><br>
-                <label>
-                    <input type="radio" name="currency" value="Ethereum"> Ethereum
-                </label><br>
-            </div>
-            <div class="modal-footer">
-                <button onclick="handleCurrencySelection()">Submit</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal for Payment Instructions -->
-    <div id="paymentModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Payment Instructions</h2>
-                <span onclick="closePaymentModal()" style="cursor: pointer; color: white;">&times;</span>
-            </div>
-            <div class="modal-body" id="paymentInstructions">
-                <!-- Payment instructions will be dynamically injected here -->
-            </div>
-            <div class="modal-footer">
-                <button onclick="closePaymentModal()">Close</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal for Contact -->
-    <div id="contactModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Contact Us</h2>
-                <span onclick="closeContactModal()" style="cursor: pointer; color: white;">&times;</span>
-            </div>
-            <div class="modal-body">
-                <label for="emailAddress">Enter your email address:</label><br>
-                <input type="email" id="emailAddress" placeholder="your_email@example.com" style="width: 100%; padding: 10px; margin: 10px 0;">
-                
-                <label for="contactReason">Contact Reason:</label><br>
-                <input type="text" id="contactReason" maxlength="50" oninput="updateContactReasonCount()" placeholder="Type your reason..." style="width: 100%; padding: 10px; margin: 10px 0;">
-                <p id="contactReasonCount">50 characters left</p>
-                
-                <label for="description">Description:</label><br>
-                <textarea id="description" maxlength="500" oninput="updateDescriptionCount()" placeholder="Explain your issue..." style="width: 100%; padding: 10px; margin: 10px 0;"></textarea>
-                <p id="descriptionCount">500 characters left</p>
-            </div>
-            <div class="modal-footer">
-                <button onclick="closeContactModal()">Submit</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Function to update the total price based on Robux amount
-        function updatePrice() {
-            const robuxAmount = document.getElementById("robuxAmount").value;
-            let price = 0;
-
-            if (robuxAmount >= 1000 && robuxAmount <= 45000) {
-                price = (robuxAmount / 1000) * 6; // Adjust pricing model as needed
-            }
-
-            document.getElementById("totalPrice").innerText = `$${price.toFixed(2)}`;
-        }
-
-        // Function to confirm Robux purchase
-        function confirmRobuxPurchase() {
-            const robuxAmount = document.getElementById("robuxAmount").value;
-            if (robuxAmount >= 1000 && robuxAmount <= 45000) {
-                closeRobuxPurchaseModal();
-                openCurrencyModal();
-            } else {
-                alert("Please enter a valid Robux amount.");
-            }
-        }
-
-        // Function to open the currency selection modal
-        function openCurrencyModal() {
-            document.getElementById("currencyModal").style.display = "block";
-        }
-
-        // Function to close the currency modal
-        function closeCurrencyModal() {
-            document.getElementById("currencyModal").style.display = "none";
-        }
-
-        // Function to handle currency selection
-        function handleCurrencySelection() {
-            const currencyValue = document.querySelector('input[name="currency"]:checked')?.value;
-            let instructions = "Please send the amount to the specified address.";
-
-            if (currencyValue) {
-                closeCurrencyModal();
-                if (currencyValue === "Litecoin") {
-                    instructions = `Send 0.0772439363509965 LTC to this eAddress: (LVbjxG2sT9kY3hiKMKBvkZKT9HT8iduGc6)`;
-                }
-                // Add additional conditions for Bitcoin and Ethereum here
-                openPaymentModal(instructions);
-            } else {
-                alert("Please select a cryptocurrency.");
-            }
-        }
-
-        // Function to open the payment instructions modal
-        function openPaymentModal(instructions) {
-            document.getElementById("paymentInstructions").innerText = instructions;
-            document.getElementById("paymentModal").style.display = "block";
-        }
-
-        // Function to close the payment modal
-        function closePaymentModal() {
-            document.getElementById("paymentModal").style.display = "none";
-        }
-
-        // Function to open the contact modal
-        function openContactModal() {
-            document.getElementById("contactModal").style.display = "block";
-        }
-
-        // Function to close the contact modal
-        function closeContactModal() {
-            document.getElementById("contactModal").style.display = "none";
-        }
-
-        // Function to update the remaining characters for the contact reason
-        function updateContactReasonCount() {
-            const contactReason = document.getElementById("contactReason").value;
-            const remaining = 50 - contactReason.length;
-            document.getElementById("contactReasonCount").innerText = `${remaining} characters left`;
-        }
-
-        // Function to update the remaining characters for the description
-        function updateDescriptionCount() {
-            const description = document.getElementById("description").value;
-            const remaining = 500 - description.length;
-            document.getElementById("descriptionCount").innerText = `${remaining} characters left`;
-        }
-
-        // Close the modal if the user clicks outside of it
-        window.onclick = function(event) {
-            const modals = document.querySelectorAll('.modal');
-            modals.forEach(modal => {
-                if (event.target === modal) {
-                    modal.style.display = "none";
-                }
-            });
-        };
-    </script>
+    <footer>
+        <p>&copy; 2024 Foiloom. All rights reserved.</p>
+    </footer>
 </body>
 </html>
