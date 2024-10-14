@@ -356,7 +356,7 @@
   <section id="services" class="services">
     <h2>Our Services</h2>
     <ul>
-      <li><a href="#" onclick="openCurrencyModal()" style="color: #FF5733; text-decoration: none;">Currency: Robux</a></li>
+      <li><a href="#" onclick="openRobuxPurchaseModal()" style="color: #FF5733; text-decoration: none;">Currency: Robux</a></li>
     </ul>
   </section>
 
@@ -364,6 +364,24 @@
   <footer>
     <p>&copy; 2024 Foiloom. All Rights Reserved.</p>
   </footer>
+
+  <!-- Modal for Robux Purchase -->
+  <div id="robuxPurchaseModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Purchase Robux</h2>
+        <span onclick="closeRobuxPurchaseModal()" style="cursor: pointer; color: #FF5733;">&times;</span>
+      </div>
+      <div class="modal-body">
+        <label for="robuxAmount">Enter the amount of Robux:</label><br>
+        <input type="number" id="robuxAmount" oninput="updatePrice()" min="1000" max="45000" placeholder="e.g., 1000" style="width: 100%; padding: 10px; margin: 10px 0;">
+        <p style="color: #FF5733;">Total Price: <span id="totalPrice">$0.00</span></p>
+      </div>
+      <div class="modal-footer">
+        <button onclick="confirmRobuxPurchase()">Next</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Modal for Cryptocurrency Selection -->
   <div id="currencyModal" class="modal">
@@ -406,6 +424,41 @@
   </div>
 
   <script>
+    // Function to open the Robux purchase modal
+    function openRobuxPurchaseModal() {
+      document.getElementById("robuxPurchaseModal").style.display = "block";
+    }
+
+    // Function to close the Robux purchase modal
+    function closeRobuxPurchaseModal() {
+      document.getElementById("robuxPurchaseModal").style.display = "none";
+    }
+
+    // Function to update the price based on Robux amount
+    function updatePrice() {
+      const robuxAmount = document.getElementById("robuxAmount").value;
+      const priceDisplay = document.getElementById("totalPrice");
+
+      let price = 0;
+
+      if (robuxAmount >= 1000 && robuxAmount <= 45000) {
+        price = (robuxAmount / 1000) * 6; // $6 for every 1000 Robux
+      }
+
+      priceDisplay.innerText = `$${price.toFixed(2)}`; // Update price display
+    }
+
+    // Function to confirm the Robux purchase and open currency modal
+    function confirmRobuxPurchase() {
+      const robuxAmount = document.getElementById("robuxAmount").value;
+      if (robuxAmount >= 1000 && robuxAmount <= 45000) {
+        closeRobuxPurchaseModal();
+        openCurrencyModal();
+      } else {
+        alert("Please enter a valid amount of Robux (between 1000 and 45000).");
+      }
+    }
+
     // Function to open the currency selection modal
     function openCurrencyModal() {
       document.getElementById("currencyModal").style.display = "block";
@@ -454,9 +507,12 @@
 
     // Close modal when clicking outside of it
     window.onclick = function(event) {
+      const robuxPurchaseModal = document.getElementById("robuxPurchaseModal");
       const currencyModal = document.getElementById("currencyModal");
       const paymentModal = document.getElementById("paymentModal");
-      if (event.target == currencyModal) {
+      if (event.target == robuxPurchaseModal) {
+        closeRobuxPurchaseModal();
+      } else if (event.target == currencyModal) {
         closeCurrencyModal();
       } else if (event.target == paymentModal) {
         closePaymentModal();
