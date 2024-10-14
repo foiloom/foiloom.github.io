@@ -174,6 +174,33 @@
       color: #FF5733;
     }
 
+    /* Contact Section */
+    .contact {
+      padding: 4rem 2rem;
+      background-color: #1E1E1E;
+      color: #FFFFFF;
+      text-align: center;
+    }
+
+    .contact h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact button {
+      background-color: #FF5733;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .contact button:hover {
+      background-color: #FF7F50;
+    }
+
     /* Animations */
     @keyframes fadeIn {
       0% {
@@ -224,6 +251,10 @@
 
       .services ul li {
         font-size: 1rem;
+      }
+
+      .contact h2 {
+        font-size: 2rem;
       }
     }
 
@@ -313,20 +344,17 @@
 
       for (let i = 0; i < numberOfStars; i++) {
         const star = document.createElement('div');
-        star.classList.add('star');
-
-        // Set random positions and delays for each star
+        star.className = 'star';
         star.style.setProperty('--randomX', Math.random());
         star.style.setProperty('--randomY', Math.random());
         star.style.setProperty('--randomTime', Math.random());
         star.style.setProperty('--randomDelay', Math.random());
-
         starsContainer.appendChild(star);
       }
     </script>
   </div>
 
-  <!-- Navbar -->
+  <!-- Navigation -->
   <nav>
     <div class="logo">
       <h1 style="margin: 0; font-size: 1.5rem; color: #FF5733;">Foiloom</h1>
@@ -353,12 +381,18 @@
   </section>
 
   <!-- Services Section -->
-  <section id="services" class="services">
+  <section id="tools" class="services">
     <h2>Our Tools</h2>
     <ul>
       <li><a href="#" onclick="openRobuxPurchaseModal()" style="color: #FF5733; text-decoration: none;">Robux</a></li>
       <li><a href="#" style="color: #FF5733; text-decoration: none;">Roblox Followers</a></li>
     </ul>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <h2>Contact Us</h2>
+    <button onclick="openContactModal()">Contact</button>
   </section>
 
   <!-- Footer -->
@@ -420,6 +454,31 @@
       </div>
       <div class="modal-footer">
         <button onclick="closePaymentModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Contact -->
+  <div id="contactModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Contact Us</h2>
+        <span onclick="closeContactModal()" style="cursor: pointer; color: #FF5733;">&times;</span>
+      </div>
+      <div class="modal-body">
+        <label for="emailAddress">Enter your email address:</label><br>
+        <input type="email" id="emailAddress" placeholder="Your Email" style="width: 100%; padding: 10px; margin: 10px 0;">
+        
+        <label for="contactReason">Contact Reason:</label><br>
+        <input type="text" id="contactReason" maxlength="50" oninput="updateContactReasonCount()" placeholder="Reason (max 50 chars)" style="width: 100%; padding: 10px; margin: 10px 0;">
+        <p id="contactReasonCount">50 characters left</p>
+
+        <label for="description">Description:</label><br>
+        <textarea id="description" maxlength="500" oninput="updateDescriptionCount()" rows="4" style="width: 100%; padding: 10px; margin: 10px 0;" placeholder="Describe your issue (max 500 chars)"></textarea>
+        <p id="descriptionCount">500 characters left</p>
+      </div>
+      <div class="modal-footer">
+        <button onclick="submitContact()">Submit</button>
       </div>
     </div>
   </div>
@@ -493,33 +552,69 @@
           instructions = "Send 0.0772439363509965 LTC to this eAddress: <strong>(LVbjxG2sT9kY3hiKMKBvkZKT9HT8iduGc6)</strong>";
         } else if (currencyValue === "Bitcoin") {
           instructions = "Please follow the Bitcoin payment instructions on our website.";
-          // You can add specific instructions for Bitcoin here
+          // Add your specific Bitcoin instructions here
         } else if (currencyValue === "Ethereum") {
           instructions = "Please follow the Ethereum payment instructions on our website.";
-          // You can add specific instructions for Ethereum here
+          // Add your specific Ethereum instructions here
         }
 
-        closeCurrencyModal(); // Close the currency selection modal
-        openPaymentModal(instructions); // Open the payment instructions modal
+        closeCurrencyModal();
+        openPaymentModal(instructions);
       } else {
         alert("Please select a cryptocurrency.");
       }
     }
 
-    // Close modal when clicking outside of it
-    window.onclick = function(event) {
-      const robuxPurchaseModal = document.getElementById("robuxPurchaseModal");
-      const currencyModal = document.getElementById("currencyModal");
-      const paymentModal = document.getElementById("paymentModal");
-      if (event.target == robuxPurchaseModal) {
-        closeRobuxPurchaseModal();
-      } else if (event.target == currencyModal) {
-        closeCurrencyModal();
-      } else if (event.target == paymentModal) {
-        closePaymentModal();
-      }
+    // Function to open the contact modal
+    function openContactModal() {
+      document.getElementById("contactModal").style.display = "block";
     }
-  </script>
 
+    // Function to close the contact modal
+    function closeContactModal() {
+      document.getElementById("contactModal").style.display = "none";
+    }
+
+    // Function to update the remaining characters for the contact reason
+    function updateContactReasonCount() {
+      const contactReason = document.getElementById("contactReason").value;
+      const remaining = 50 - contactReason.length;
+      document.getElementById("contactReasonCount").innerText = `${remaining} characters left`;
+    }
+
+    // Function to update the remaining characters for the description
+    function updateDescriptionCount() {
+      const description = document.getElementById("description").value;
+      const remaining = 500 - description.length;
+      document.getElementById("descriptionCount").innerText = `${remaining} characters left`;
+    }
+
+    // Function to handle contact form submission
+    function submitContact() {
+      const email = document.getElementById("emailAddress").value;
+      const reason = document.getElementById("contactReason").value;
+      const description = document.getElementById("description").value;
+
+      // Basic validation
+      if (!email || !reason || !description) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      // Here you would typically send the data to your server
+      alert(`Contact submitted! Email: ${email}, Reason: ${reason}, Description: ${description}`);
+      closeContactModal();
+    }
+
+    // Close the modal if the user clicks outside of it
+    window.onclick = function(event) {
+      const modals = document.querySelectorAll('.modal');
+      modals.forEach(modal => {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      });
+    };
+  </script>
 </body>
 </html>
